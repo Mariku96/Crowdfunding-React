@@ -1,8 +1,9 @@
-import CampaignsPage from './components/CampaignsPage'
-import DashboardPage from './components/DashboardPage'
-import HomePage from './components/HomePage'
+import CampaignsPage from './pages/CampaignsPage'
+import DashboardPage from './pages/DashboardPage'
+import HomePage from './pages/HomePage'
 import NavBar from './components/NavBar'
 import { Routes, Route } from 'react-router'
+import CampaignDetailPage from './pages/CampaignDetailPage'
 
 const App = () =>{
   return (
@@ -13,6 +14,7 @@ const App = () =>{
           <Route path='/dashboard' element={<DashboardPage/>} />
           <Route path='/' element={<HomePage/>}/>
           <Route path='/campaigns' element={<CampaignsPage/>} />
+          <Route path='campaigns/detail/:address' element={<CampaignDetailPage/>}/>
         </Routes>
       </div>
     </>
