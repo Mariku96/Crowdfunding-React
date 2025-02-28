@@ -6,7 +6,6 @@ import { useReadContract } from "thirdweb/react"
 import CampaignCard from "../components/CampaignCard"
 
 const CampaignsPage = () => {
-
     const contract = getContract({
         client : client,
         chain : lineaSepolia,

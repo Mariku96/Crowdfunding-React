@@ -2,16 +2,23 @@ import { getContract } from "thirdweb"
 import { client } from "../utils/client"
 import { lineaSepolia } from "thirdweb/chains"
 import { useParams } from "react-router"
-import { useReadContract } from "thirdweb/react"
+import { useActiveAccount, useReadContract } from "thirdweb/react"
 import TierCard from "../components/TierCard"
+import { useState } from "react"
+import CreateTierModal from "../components/CreateTierModal"
+
 
 const CampaignDetailPage = () =>{
+    const account = useActiveAccount();
     const {address} = useParams();
+    const [isEditing, setIsEditing] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const contract = getContract({
         client: client,
         chain: lineaSepolia,
         address: address as string
-    })
+    }) 
 
     const { data: nameCampaign, isPending: isLoadingName } = useReadContract({
         contract,
@@ -82,6 +89,17 @@ const CampaignDetailPage = () =>{
                         <p className="text-4xl font-semibold">{nameCampaign}</p>
                     )
                 }
+                {
+                    owner === account?.address &&(
+                        <div className=" flex flex-row">
+                            <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={() => setIsEditing(!isEditing)}>
+                            {
+                                isEditing ? "Done" : "Edit"
+                            }     
+                            </button>
+                        </div>  
+                    )
+                }
             </div>
             <div className="my-4">
                     <p className="text-lg font-semibold">Description</p>
@@ -130,17 +148,33 @@ const CampaignDetailPage = () =>{
                                     tier={tier}
                                     index={index}
                                     contract={contract}
+                                    isEditing={isEditing}
                                     />
                                 ))
                             ) : (
-                                <p>No Tiers available</p>
+                                !isEditing && (
+                                    <p>No Tiers available</p>
+                                )
                             )
                            )
                         }
+                        {isEditing && (
+                            <button onClick={() => setIsModalOpen(true)} className="max-w-sm flex flex-col text-center justify-center items-center font-semibold p-6 text-white rounded-md bg-blue-500">
+                                Add Tier
+                            </button>
+                        )}
                     </div>
                 </div>
+                {isModalOpen && (
+                    <CreateTierModal
+                    setIsModalOpen={setIsModalOpen}
+                    contract={contract}
+                    />
+                )}
         </div>
     )
 }
+
+
 
 export default CampaignDetailPage
