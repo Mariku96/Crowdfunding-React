@@ -63,7 +63,7 @@ const CampaignCard = ({ campaignAddress }: CampaignCardProps) => {
                             </div>
                         <h5 className="wb-2 text-2xl font-bold tracking-tight">{campaignName}</h5>
                         <p className="wb-3 font-normal text-gray-700 dark:text-gray-400">{campaignDescription}</p>
-                        <button onClick={() => navigate(`detail/${campaignAddress}`)} className="mt-5 bg-navbar px-5 py-2 cursor-pointer rounded-full text-white  font-semibold hover:bg-slate-950 active:bg-slate-950 focus:ring focus:inset-ring-sky-200">View Campaign</button>
+                        <button onClick={() => navigate(`../detail/${campaignAddress}`)} className="mt-5 bg-navbar px-5 py-2 cursor-pointer rounded-full text-white  font-semibold hover:bg-slate-950 active:bg-slate-950 focus:ring focus:inset-ring-sky-200">View Campaign</button>
                     </div>
                 )
             }
